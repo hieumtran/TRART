@@ -8,39 +8,6 @@ from functions.menu import menu
 from glob import glob
 import os
 
-
-'''
-
-
-PuzzleGame
-----------
-v. 24.0 - fixed score, added methods to save
-and load to Puzzle class. 16.8.20
-v. 25.0
-- better sounds
-- improve scoring
-2.7
-save the actual situation
-menu
-choose the image you want
-2.8
-- finish menu
-- new sounds: "joy", "yes", "ok", "nice", "right"
-2.9
-- lots of new sounds
-3.0
-- fix bug lost tiles
-- memorize where you are
-- new loops
-3.1
-shrink the middle table with puzzles
-
-
-
-
-
-
-'''
 print(sys.version)
 
 def harmonic_color(image):
@@ -73,7 +40,7 @@ class Puzzle:
     w, h = image.get_size()
     w = floor(w)
     h = floor(h)
-    screen = pygame.display.set_mode((w * 3 - w // 2 + 14, h))
+    screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
     pygame.display.set_caption("Puzzle-mania 3.1")
     image.convert()
     bar = pygame.Surface((7, h))
@@ -143,9 +110,6 @@ class Puzzle:
             self.first_score()
 
 
-
-
-
 def start_again():
     '''This is called when you hit space, it resets the value to fit the new
     The separator will always be in color with the image'''
@@ -158,7 +122,7 @@ def start_again():
     Tile.w = Puzzle.w // 10
     Tile.h = Puzzle.h // 10
     bar = pygame.Surface((7, Puzzle.h))
-    Puzzle.screen = pygame.display.set_mode((Puzzle.w * 3 + 14 - Puzzle.w // 2, Puzzle.h))
+    Puzzle.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
     Puzzle.image.convert()
     Puzzle.bar.fill(harmonic_color(Puzzle.image))
     blacktile = pygame.Surface((Tile.w, Tile.h))
@@ -172,8 +136,6 @@ class Tile:
 
 def check_if_ok(tile3, tile1, numtile):
     global rects3, puzzle3, puzzle
-
-    
 
     # Check if the images are the same (same color)
     uguale = 0
@@ -213,15 +175,12 @@ def check_if_ok(tile3, tile1, numtile):
         show_puzzle()
 
 
-
 def blit(part, x, y):
     "Show something on the window"
     Puzzle.screen.blit(part, (x, y))
 
-
 def play(snd):
     pygame.mixer.Sound.play(Puzzle.sounds[snd])
-
 
 def get_coords(event):
     global coords
