@@ -28,11 +28,6 @@ class DragAndDrop(tk.Frame):
         :return: None
         """
         self.canvas = tk.Canvas(width=600, height=600, bg="cyan")
-        gif1 = tk.PhotoImage(file='small_globe.gif')
-
-# Put gif image on canvas.
-# Pic's upper-left corner (NW) on the canvas is at x=50 y=10.
-        canvas.create_image(50, 10, image=gif1)
         self.canvas.pack()
 
         self.move_data = {"object": None, "x": 0, "y": 0}
@@ -48,7 +43,7 @@ class DragAndDrop(tk.Frame):
         """
         objs = [(200, 200, "white"), (400, 400, "red"), (200, 400, "green"), (400, 200, "black")]
         for x, y, color in objs:
-            self.canvas.create_oval(x - 30, y - 30, x + 30, y + 30, outline=color, fill=color, tags=tag)
+            self.canvas.create_oval(x - 30, y - 30, x + 30, y + 30, outline=color, fill='peeler.jpg', tags=tag)
 
     def bind_tags(self, tag):
         """
