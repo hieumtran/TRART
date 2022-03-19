@@ -10,6 +10,7 @@ import os
 
 print(sys.version)
 
+
 def harmonic_color(image):
     "Returns a random color from image"
     w, h = image.get_size()
@@ -50,7 +51,7 @@ class Puzzle:
     font2 = pygame.font.SysFont("Arial", 20)
     # pygame.event.set_grab(True)
     maxscore = 0
-    ### colors
+    # colors
     BLACKTILE = (harmonic_color(image))
 
     def __init__(self, file):
@@ -141,7 +142,7 @@ def check_if_ok(tile3, tile1, numtile):
     uguale = 0
     for pxh in range(Tile.h):
         for pxw in range(Tile.w):
-            if tile3.get_at((pxw, pxh)) ==  tile1.get_at((pxw, pxh)):
+            if tile3.get_at((pxw, pxh)) == tile1.get_at((pxw, pxh)):
                 uguale += 1
             else:
                 # if there is one pixel that is different it quits
@@ -156,11 +157,11 @@ def check_if_ok(tile3, tile1, numtile):
     if pixels == uguale:
         pygame.mixer.pause()
         pygame.mixer.Sound.play(choice(Puzzle.winsounds))
-        
 
         Puzzle.score += 25
         brighten = 32
-        tile3.fill((brighten, brighten, brighten), special_flags=pygame.BLEND_RGB_ADD) 
+        tile3.fill((brighten, brighten, brighten),
+                   special_flags=pygame.BLEND_RGB_ADD)
         puzzle3[numtile][1] = tile3
         puzzle[numtile][1] = tile3
         # Another tile fixed correctly
@@ -179,14 +180,16 @@ def blit(part, x, y):
     "Show something on the window"
     Puzzle.screen.blit(part, (x, y))
 
+
 def play(snd):
     pygame.mixer.Sound.play(Puzzle.sounds[snd])
+
 
 def get_coords(event):
     global coords
 
     mousex, mousey = event
-    mx = ((mousex - 7 - Puzzle.w // 2) // Tile.w ) * Tile.w
+    mx = ((mousex - 7 - Puzzle.w // 2) // Tile.w) * Tile.w
     my = (mousey // Tile.h) * Tile.h
     for coord in coords:
         # if the mouse touches a tile that has the same coordinates
@@ -196,12 +199,13 @@ def get_coords(event):
             # print(puzzle[coord[0]])
             return coord
 
+
 def get_coords2(event):
     "Returns the coordinates of the piece you leave on the table"
     global coords
     # mouse coordinates
     mousex, mousey = event
-    # transform coordinates into 
+    # transform coordinates into
     mx = ((mousex - 14 - Puzzle.w - Puzzle.w // 2) // Tile.w) * Tile.w
     my = (mousey // Tile.h) * Tile.h
     print(mx, my)
@@ -217,6 +221,8 @@ def get_coords2(event):
 
 blacktile = pygame.Surface((Tile.w, Tile.h))
 blacktile.fill(Puzzle.BLACKTILE)
+
+
 class Event_listener():
     "How to exit from the game"
     global coords, dragging, puzzle2, blacktile, puzzle3
@@ -225,6 +231,7 @@ class Event_listener():
     p2pos = 0
     # see in which quadro you picked the tile
     pos3 = False
+
     def check(self):
 
         for event in pygame.event.get():
@@ -254,29 +261,34 @@ class Event_listener():
                 if event.button == 3:
                     Puzzle.score -= 1
                     x, y = event.pos
-                    if x > Puzzle.w // 2 and x < Puzzle.w * 2 - Puzzle.w // 2:              
+                    if x > Puzzle.w // 2 and x < Puzzle.w * 2 - Puzzle.w // 2:
                         coord = get_coords(event.pos)
-                        puzzle2[coord[0]][1] = pygame.transform.flip(puzzle2[coord[0]][1], 1, 0)
-                    if x > Puzzle.w * 2 - Puzzle.w // 2:              
+                        puzzle2[coord[0]][1] = pygame.transform.flip(
+                            puzzle2[coord[0]][1], 1, 0)
+                    if x > Puzzle.w * 2 - Puzzle.w // 2:
                         coord2 = get_coords2(event.pos)
                         if puzzle[coord2[0]][1] != puzzle3[coord2[0]][1]:
-                            puzzle3[coord2[0]][1] = pygame.transform.flip(puzzle3[coord2[0]][1], 1, 0)
-                            check_if_ok(puzzle[coord2[0]][1], puzzle3[coord2[0]][1], coord2[0])
+                            puzzle3[coord2[0]][1] = pygame.transform.flip(
+                                puzzle3[coord2[0]][1], 1, 0)
+                            check_if_ok(puzzle[coord2[0]][1],
+                                        puzzle3[coord2[0]][1], coord2[0])
 
                 # middle button - flip vertically when scroll
 
                 if event.button == 4 or event.button == 5:
                     Puzzle.score -= 1
                     x, y = event.pos
-                    if x > Puzzle.w // 2 and x < Puzzle.w * 2 - Puzzle.w // 2:               
+                    if x > Puzzle.w // 2 and x < Puzzle.w * 2 - Puzzle.w // 2:
                         coord = get_coords(event.pos)
-                        puzzle2[coord[0]][1] = pygame.transform.flip(puzzle2[coord[0]][1], 0, 1)
-                    if x > Puzzle.w * 2 - Puzzle.w // 2:               
+                        puzzle2[coord[0]][1] = pygame.transform.flip(
+                            puzzle2[coord[0]][1], 0, 1)
+                    if x > Puzzle.w * 2 - Puzzle.w // 2:
                         coord2 = get_coords2(event.pos)
                         if puzzle[coord2[0]][1] != puzzle3[coord2[0]][1]:
-                            puzzle3[coord2[0]][1] = pygame.transform.flip(puzzle3[coord2[0]][1], 0, 1)
-                            check_if_ok(puzzle[coord2[0]][1], puzzle3[coord2[0]][1], coord2[0])
-
+                            puzzle3[coord2[0]][1] = pygame.transform.flip(
+                                puzzle3[coord2[0]][1], 0, 1)
+                            check_if_ok(puzzle[coord2[0]][1],
+                                        puzzle3[coord2[0]][1], coord2[0])
 
                 if event.button == 1:
                     play("click")
@@ -305,11 +317,12 @@ class Event_listener():
                             # blit(blacktile, coord[1] + Puzzle.w, coord[2])
                             # blit(puzzle2[coord[0]][1], event.pos[0], event.pos[1])
                             # print(coord[0])
-                    
+
                     #                                        #
                     #            Clicco nel 3o quadrante     #
                     #                                        #
-                    elif x > Puzzle.w * 2 - Puzzle.w // 2 + 7: # and x < Puzzle.w * 3 - Puzzle.w // 2:
+                    # and x < Puzzle.w * 3 - Puzzle.w // 2:
+                    elif x > Puzzle.w * 2 - Puzzle.w // 2 + 7:
                         # coord2 = [num, x, y]
                         coord2 = get_coords2(event.pos)
                         # you picked the tile in the 3rd quadro
@@ -317,7 +330,7 @@ class Event_listener():
                             Event_listener.drag = 0
                         else:
                             Event_listener.pos3 = True
-                            Event_listener.p3pos = coord2[0] 
+                            Event_listener.p3pos = coord2[0]
                             # Prendo l'immagine nel puzzle 3 alle coord
                             # coord2[0][0] è il numero del tile
                             # coord2[0][1] + la surface
@@ -331,7 +344,6 @@ class Event_listener():
                             coord2 = get_coords2(event.pos)
                             if puzzle3[coord2[0]][1] == blacktile:
                                 puzzle_get = puzzle3[coord2[0]][1]
-
 
             # QUANDO RILASCIO IL PULSANTE
             # NON C'è PIù il trascinamento drag = 0
@@ -353,17 +365,17 @@ class Event_listener():
                         casella = puzzle3[coord2[0]]
                         tile3 = casella[1]
                         if tile3 == blacktile:
-                                # Se cìè un black tile è vuoto e Molla il pezzo 
-                                Event_listener.drag = 0
-                                # In quel posto metto il pezzo in memoria
-                                # come coordinata metto...
-                                puzzle3[coord2[0]][1] = Event_listener.tile
-                                # Controlla se l'immagine nella posizione è
-                                # uguale a quella della posizione originale nel puzzle 1
-                                check_if_ok(Event_listener.tile, puzzle[coord2[0]][1], coord2[0])
-                                # if Event_listener.tile == puzzle[coord2[0]][1]:
-                                #     play("joy")
-                        
+                            # Se cìè un black tile è vuoto e Molla il pezzo
+                            Event_listener.drag = 0
+                            # In quel posto metto il pezzo in memoria
+                            # come coordinata metto...
+                            puzzle3[coord2[0]][1] = Event_listener.tile
+                            # Controlla se l'immagine nella posizione è
+                            # uguale a quella della posizione originale nel puzzle 1
+                            check_if_ok(Event_listener.tile,
+                                        puzzle[coord2[0]][1], coord2[0])
+                            # if Event_listener.tile == puzzle[coord2[0]][1]:
+                            #     play("joy")
 
                         elif Event_listener.pos3:
                             puzzle3[Event_listener.p3pos][1] = Event_listener.tile
@@ -395,7 +407,7 @@ def create_puzzle():
     global coords, origcoords
 
     puzzle = []
-    puzzle2 = [] # this will be shuffled
+    puzzle2 = []  # this will be shuffled
     puzzle3 = []
     coords = []
     blit(Puzzle.image, 0, 0)
@@ -437,12 +449,12 @@ def show_puzzle(shuffled=0):
     n = 0
     for num_tile, x, y in coords:
         # The tiles are half the normal size
-        screen1.blit(pygame.transform.scale(puzzle[n][1], (Tile.w // 2, Tile.h // 2)), (x // 2, y // 2))
+        screen1.blit(pygame.transform.scale(
+            puzzle[n][1], (Tile.w // 2, Tile.h // 2)), (x // 2, y // 2))
         rects.append(pygame.Rect(x + Puzzle.w, y, Tile.w // 2, Tile.h // 2))
         n += 1
     # Puzzle.screen.blit(pygame.transform.scale(screen1, (Puzzle.w // 4, Puzzle.h // 4)), (0, 0))
     Puzzle.screen.blit(screen1, (0, 0))
-
 
 
 def show_puzzle2():
@@ -457,6 +469,7 @@ def show_puzzle2():
         n += 1
     draw_grid()
 
+
 def show_puzzle3():
     global puzzle3
 
@@ -464,7 +477,7 @@ def show_puzzle3():
     n = 0
     # the coords=[[0, 50, 0], [1, 100, 0]...]
     # Create a surface half of the Puzzle.image (Puzzle.w // 2 e Puzzle.h // 2)
-    
+
     for num_tile, x, y in coords:
         blit(puzzle3[n][1], x + Puzzle.w * 2 - Puzzle.w // 2 + 14, y)
         # rects3.append(pygame.Rect(x + Puzzle.w * 2 - Puzzle.w // 2 + 14, y, Tile.w, Tile.h))
@@ -475,16 +488,16 @@ def show_puzzle3():
 def draw_grid():
     "Draws the grid 10x10 for 40x50 tiles"
     def draw_horizzontal():
-        x = Puzzle.w // 2 + 7 # sempre uguale a 500
+        x = Puzzle.w // 2 + 7  # sempre uguale a 500
         y = n * Tile.h
         w = Puzzle.w * 2 + 7 - Puzzle.w // 2
         h = n * Tile.h
         pygame.draw.line(Puzzle.screen, (0, 0, 0), (x, y), (w, h), 2)
 
     def draw_vertical():
-        xv = Puzzle.w // 2 + 7 + n * Tile.w # Parte da 500 + 50 ... 100...
-        yv = 0 # parte sempre da altezza 0 (top)
-        wv = Puzzle.w  // 2 + 7 + n * Tile.w # parte da 500 e aggiunge 50 x 10 = 500
+        xv = Puzzle.w // 2 + 7 + n * Tile.w  # Parte da 500 + 50 ... 100...
+        yv = 0  # parte sempre da altezza 0 (top)
+        wv = Puzzle.w // 2 + 7 + n * Tile.w  # parte da 500 e aggiunge 50 x 10 = 500
         hv = Puzzle.h  # altezza 500
         pygame.draw.line(Puzzle.screen, (0, 0, 0), (xv, yv), (wv, hv), 2)
 
@@ -492,26 +505,29 @@ def draw_grid():
         draw_horizzontal()
         draw_vertical()
 
+
 def draw_grid2():
     "Draws the grid 10x10 for 40x50 tiles"
     def draw_horizzontal():
-        x = Puzzle.w * 2 - Puzzle.w // 2 + 14 # sempre uguale a 500
-        y = n * Tile.h # va in basso di 50, 100...
-        w = Puzzle.w * 3 - Puzzle.w // 2 + 14 # ascissa 2 = 1500
-        h = n * Tile.h # ordinata come sopra 50, 100...
+        x = Puzzle.w * 2 - Puzzle.w // 2 + 14  # sempre uguale a 500
+        y = n * Tile.h  # va in basso di 50, 100...
+        w = Puzzle.w * 3 - Puzzle.w // 2 + 14  # ascissa 2 = 1500
+        h = n * Tile.h  # ordinata come sopra 50, 100...
         pygame.draw.line(Puzzle.screen, (128, 128, 128, 64), (x, y), (w, h), 1)
 
     def draw_vertical():
-        xv = Puzzle.w * 2 - Puzzle.w // 2+ 14 + n * Tile.w # Parte da 112800 + 50 ... 100...
-        yv = 0 # parte sempre da altezza 0 (top)
-        wv = Puzzle.w * 2 - Puzzle.w // 2 + 14 + n * Tile.w # parte da 1000 e aggiunge 50 x 10 = 500
-        hv = Puzzle.h # altezza 500
-        pygame.draw.line(Puzzle.screen, (128, 128, 128, 128), (xv, yv), (wv, hv), 1)
+        # Parte da 112800 + 50 ... 100...
+        xv = Puzzle.w * 2 - Puzzle.w // 2 + 14 + n * Tile.w
+        yv = 0  # parte sempre da altezza 0 (top)
+        wv = Puzzle.w * 2 - Puzzle.w // 2 + 14 + n * \
+            Tile.w  # parte da 1000 e aggiunge 50 x 10 = 500
+        hv = Puzzle.h  # altezza 500
+        pygame.draw.line(Puzzle.screen, (128, 128, 128, 128),
+                         (xv, yv), (wv, hv), 1)
 
     for n in range(10):
         draw_horizzontal()
         draw_vertical()
-
 
 
 def collision():
@@ -539,8 +555,10 @@ def write2(text, screen, font, x, y, color="Coral",):
     screen.blit(text, text_rect)
     return text
 
+
 def writing(text, width, height):
     write2(text, Puzzle.screen, Puzzle.font, width, height)
+
 
 def soundinit():
     pygame.mixer.pre_init(44100, -16, 2, 512)
@@ -549,9 +567,11 @@ def soundinit():
     pygame.mixer.init(44100, -16, 2, 512)
     pygame.mixer.set_num_channels(32)
 
+
 drag = 0
 
 pyzzlemania = Puzzle("score.txt")
+
 
 def music():
     pygame.mixer.music.load(choice([
@@ -571,22 +591,25 @@ def start():
     # show_puzzle2()
     # music()
     while True:
-        Puzzle.screen.fill((0,0,0))
+        Puzzle.screen.fill((0, 0, 0))
         #Puzzle.screen.blit(Puzzle.screen2, (0, 500))
         show_puzzle()
         show_puzzle2()
         show_puzzle3()
         bars()
         writing(f"Score {int(Puzzle.score)}", 10, Puzzle.h // 2 + 30)
-        writing(f"Pieces fixed = {int(Puzzle.tiles_fixed)}/{Puzzle.w // Tile.w * Puzzle.h // Tile.h}", 10, Puzzle.h // 2 + 60)
+        writing(
+            f"Pieces fixed = {int(Puzzle.tiles_fixed)}/{Puzzle.w // Tile.w * Puzzle.h // Tile.h}", 10, Puzzle.h // 2 + 60)
         font1(f"Maxiscore {Puzzle.maxscore}", Puzzle.h - 30)
         if Event_listener.drag == 1:
             Puzzle.score -= .01
-            Puzzle.screen.blit(Event_listener.tile, (pygame.mouse.get_pos()[0] - Tile.w // 2, pygame.mouse.get_pos()[1] - Tile.h // 2))
+            Puzzle.screen.blit(Event_listener.tile, (pygame.mouse.get_pos()[
+                               0] - Tile.w // 2, pygame.mouse.get_pos()[1] - Tile.h // 2))
         # User input
         Event_listener().check()
         pygame.display.update()
         Puzzle.clock.tick(60)
+
 
 menu(Puzzle, start)
 start()
