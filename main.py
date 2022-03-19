@@ -8,17 +8,14 @@ def main():
     pygame.display.set_caption("Slide Puzzle")
     screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
     fpsclock = pygame.time.Clock()
-    program = SlidePuzzle((3,3), 150, 5)
+    program = SlidePuzzle((4,4), 150, 5)
     
     
     while True:
         dt = fpsclock.tick()/1000
         
-        screen.fill((1,1,1)) # Filling with missing pictures
+        # screen.fill((1,1,1)) # Filling with missing pictures
         screen.fill([255, 255, 255])
-        # screen.blit(BackGround.image, BackGround.rect)
-
-        
         
         program.draw(screen)
         pygame.display.flip()
