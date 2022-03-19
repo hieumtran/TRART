@@ -17,19 +17,25 @@ class SlidePuzzle:
         self.gs, self.ts, self.ms = gs, ts, ms
         self.tiles_len = (gs[0]*gs[1]) - 1
         self.tiles = [(x,y) for x in range(gs[0]) for y in range(gs[1])]
-        self.tilesOG = [(x,y) for x in range(gs[0]) for y in range(gs[1])]    
-        self.tilespos = {(x,y):(x*(ts+ms)+ms,y*(ts+ms)+ms) for y in range(gs[1]) for x in range(gs[0])}    
+        self.tilesOG = [(x,y) for x in range(gs[0]) for y in range(gs[1])]   
+        self.tilespos = {(x,y):(x*(ts+ms)+ms,y*(ts+ms)+ms) for y in range(gs[1]) for x in range(gs[0])}   
         self.font = pygame.font.Font(None, 120)    
         w,h = gs[0]*(ts+ms)+ms, gs[1]*(ts+ms)+ms
-        
-        pic = pygame.image.load('./building/gcpa.jpg')
+        pic = pygame.image.load('./building/peeler.jpg')
         pic = pygame.transform.scale(pic, (w,h))
+        
+        # Scaling factor
+        w_screen, h_screen = pygame.display.get_surface().get_size() 
+        self.w_adjust = (w_screen - self.ts*self.gs[0] - self.ms*(self.gs[0] - 1)) / 2
+        self.h_adjust = (h_screen - self.ts*self.gs[1] - self.ms*(self.gs[1] - 1)) / 2
         
         self.images = []
         for i in range(self.tiles_len):
             x,y = self.tilespos[self.tiles[i]]
             image = pic.subsurface(x,y,ts,ts)
             self.images += [image] 
+        
+        print(self.images)
             
         self.temp = self.tiles[:-1]
         shuffle(self.temp)
@@ -65,8 +71,7 @@ class SlidePuzzle:
         
         # Convert mouse position relative to tile position and check in grid
         if mouse[0]:
-            tile = mpos[0]//self.ts, mpos[1]//self.ts
-            
+            tile = (mpos[0] - self.w_adjust)//self.ts , (mpos[1] - self.h_adjust)//self.ts
             if self.is_grid(tile): 
                 if tile in self.adjacent():
                     self.switch(tile)
@@ -74,4 +79,4 @@ class SlidePuzzle:
     def draw(self, screen):
         for i in range(self.tiles_len):
             x,y = self.tilespos[self.tiles[i]]
-            screen.blit(self.images[i], (x,y))            
+            screen.blit(self.images[i], (x+self.w_adjust,y+self.h_adjust))
