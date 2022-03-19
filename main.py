@@ -10,8 +10,6 @@ def main():
     fpsclock = pygame.time.Clock()
     program = SlidePuzzle((3,3), 150, 5)
     
-    BackGround = Background('bg.png', [0,0])
-    
     
     while True:
         dt = fpsclock.tick()/1000
