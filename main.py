@@ -1,7 +1,6 @@
 import pygame
 import os, sys
 from slide_puzzle import SlidePuzzle
-from bg import Background
 
 def main():
     pygame.init()

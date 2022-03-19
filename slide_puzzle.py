@@ -80,4 +80,3 @@ class SlidePuzzle:
         for i in range(self.tiles_len):
             x,y = self.tilespos[self.tiles[i]]
             screen.blit(self.images[i], (x+self.w_adjust,y+self.h_adjust))
-            # screen.blit(self.images[i], (x,y))  
