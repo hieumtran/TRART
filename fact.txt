@@ -1,10 +1,22 @@
-Name:
+Name: 
 Image Type: Building/People/Event
 Time:
 Description:
 
 
 Name: The Percy Lavon Julian Science and Mathematics Center
+Image Type: Building
+Time: 1972
+Description:
+October 3, 1980, Greencastle, Ind. — DePauw University's Science and Mathematics Center, which opened in 1972, was today formally named in honor of Percy Lavon Julian, a 1920 graduate of the University and former member of DePauw's Board of Trustees, who went on to a legendary career as a chemist and inventor.
+
+Name: GCPA
+Image Type: Building
+Time: 2007
+Description:
+The Judson and Joyce Green Center for the Performing Arts is a state-of-the-art facility that inspires creativity and innovation. The Green Center includes acoustically isolated faculty studios and practice rooms, technologically “smart” classrooms, superb ensemble rehearsal spaces, a technology center, a recording studio, a comprehensive music library, and three remarkable performance halls.
+
+Name: Prindle
 Image Type: Building
 Time: 
 Description:
