@@ -1,0 +1,21 @@
+admission 1
+admission
+asbury
+cdi
+east_college
+east_college 1
+farm
+gcpa
+hoover
+hoover 1
+julian
+lilly
+olin
+pccm
+peeler 1
+peeler
+prindle 1
+prindle 2
+prindle
+ub
+west_college
