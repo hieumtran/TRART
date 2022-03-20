@@ -20,10 +20,25 @@ class SlidePuzzle:
         self.font = pygame.font.Font(None, 120)    
         self.w, self.h = gs[0]*(ts+ms)+ms, gs[1]*(ts+ms)+ms
         
+        # Windows screen 
+        self.w_screen = w_screen
+        self.h_screen = h_screen
+        
+        # Scaling factor
+        self.w_adjust = (w_screen - self.ts*self.gs[0] - self.ms*(self.gs[0] - 1)) / 2
+        self.h_adjust = (h_screen - self.ts*self.gs[1] - self.ms*(self.gs[1] - 1)) / 2
+        
         # Picture loader
-        picture = choice(glob.glob('./data/building/*jpg'))
+        picture = choice(glob.glob('./data/building/*.jpg'))
         self.pic = pygame.image.load(picture)
         self.pic = pygame.transform.scale(self.pic, (self.w, self.h))
+        
+        # Facts loader
+        fact = open('./data/building/'+picture.split('\\')[1].replace('jpg', 'txt'), 'r')
+        text = fact.read().split('\n')
+        font = pygame.font.Font('./font/Roboto-Bold.ttf', 50)
+        self.display_name = font.render(text[0], False, (0, 0, 0), (255, 255, 255))
+        self.display_year = font.render(text[1], False, (0, 0, 0), (255, 255, 255))
         
         # Button
         self.back_button = pygame.image.load('./ui_button/back_button.png')
@@ -33,14 +48,6 @@ class SlidePuzzle:
         
         # Game condition
         self.finish = 0
-        
-        # Windows screen 
-        self.w_screen = w_screen
-        self.h_screen = h_screen
-        
-        # Scaling factor
-        self.w_adjust = (w_screen - self.ts*self.gs[0] - self.ms*(self.gs[0] - 1)) / 2
-        self.h_adjust = (h_screen - self.ts*self.gs[1] - self.ms*(self.gs[1] - 1)) / 2
         
         self.images = []
         for i in range(self.tiles_len):
@@ -91,8 +98,10 @@ class SlidePuzzle:
                     sound = pygame.mixer.Sound("./sounds/click.mp3")
                     pygame.mixer.Sound.play(sound)
                     
-            if self.back_button.get_rect().collidepoint(pos):
+            if self.back_button_rect.collidepoint(pos):
                 cond = 0
+            elif self.retry_rect.collidepoint(pos):
+                self.__init__(self.gs, self.ts, self.ms, self.w_screen, self.h_screen)
             else: self.finish = 0
         return cond
 
@@ -115,13 +124,21 @@ class SlidePuzzle:
         screen.blit(pygame.transform.scale(self.pic, (goal_w, goal_h)), (goal_init_w, goal_init_h))
         
         # Buttons
-        screen.blit(self.back_button, (0,0))
-        screen.blit(self.retry, (self.w_screen-self.retry.get_width(),0))
+        self.back_button_rect = self.back_button.get_rect(x=0,y=0)
+        screen.blit(self.back_button, self.back_button_rect)
+        self.retry_rect = self.retry.get_rect(x=self.w_screen-self.retry.get_width(),y=0)
+        screen.blit(self.retry, self.retry_rect)
+        
+        # Facts
+        self.display_name_rect = self.display_name.get_rect(center=(self.w_screen/2, self.h_screen-self.display_name.get_height()-self.display_year.get_height()))
+        self.display_year_rect = self.display_year.get_rect(center=(self.w_screen/2, self.h_screen-self.display_year.get_height()))
+        screen.blit(self.display_name, self.display_name_rect)
+        screen.blit(self.display_year, self.display_year_rect)
         
         # Winning condition
         if self.finish == 1:
             congrat = pygame.image.load('./ui_button/congrat.png')
-            congrat = pygame.transform.scale(congrat, (1829-250, 430-100))
+            congrat = pygame.transform.scale(congrat, (1829*0.95, 430*0.95))
             # pygame.draw.rect(screen, (0, 0, 0, 0.2), pygame.Rect(0, 0, self.w_screen, self.h_screen))
             s = pygame.Surface((self.w_screen, self.h_screen))  # the size of your rect
             s.set_alpha(128)                # alpha level

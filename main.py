@@ -4,7 +4,6 @@ from slide_puzzle import SlidePuzzle
 from menu import menuUI
 
 
-
 def main():
     pygame.init()
     os.environ['SDL_VIDEO_CENTERED'] = '1'
@@ -37,6 +36,7 @@ def main():
                 prev_cond == cond
         elif cond >= 2:
             program.draw(screen)
+            cond = program.update(pos, cond)
             # elif cond == 2.5:
             #     program = SlidePuzzle((3,3), 160, 5, w_screen, h_screen)
             #     program.draw(screen)
@@ -55,7 +55,6 @@ def main():
         if cond == -1:
             sys.exit()
                 
-        cond = program.update(pos, cond)
 
 if __name__ == '__main__':
     main()
