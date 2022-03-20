@@ -1,7 +1,8 @@
-import pygame, sys, os
-from random import shuffle
+import pygame, os
+from random import shuffle, choice
 import copy
 import time
+import glob
 
 
 # gs - grid size
@@ -20,7 +21,8 @@ class SlidePuzzle:
         self.w, self.h = gs[0]*(ts+ms)+ms, gs[1]*(ts+ms)+ms
         
         # Picture loader
-        self.pic = pygame.image.load('./building/peeler.jpg')
+        picture = choice(glob.glob('./data/building/*jpg'))
+        self.pic = pygame.image.load(picture)
         self.pic = pygame.transform.scale(self.pic, (self.w, self.h))
         
         # Button
@@ -71,7 +73,7 @@ class SlidePuzzle:
         x,y = self.opentile
         return (x-1, y), (x+1,y), (x,y-1), (x,y+1)
     
-    def update(self, dt):
+    def update(self, pos, cond):
         """
         # Find the tile mouse is on
         # Switch as long as open tile is adjacent
@@ -88,10 +90,13 @@ class SlidePuzzle:
                     self.switch(tile)
                     sound = pygame.mixer.Sound("./sounds/click.mp3")
                     pygame.mixer.Sound.play(sound)
+                    
+            if self.back_button.get_rect().collidepoint(pos):
+                cond = 0
             else: self.finish = 0
-            
-            
-    def draw(self, screen, clock):
+        return cond
+
+    def draw(self, screen):
         init_w, init_h = self.tilespos[(0, 0)][0] + self.w_adjust, self.tilespos[(0, 0)][1] + self.h_adjust
         init_w_size, init_h_size = self.ts*self.gs[0] + self.ms*(self.gs[0] - 1), self.ts*self.gs[1] + self.ms*(self.gs[1] - 1)
         
@@ -110,8 +115,8 @@ class SlidePuzzle:
         screen.blit(pygame.transform.scale(self.pic, (goal_w, goal_h)), (goal_init_w, goal_init_h))
         
         # Buttons
-        screen.blit(self.back_button, (self.w_screen-self.w/4-init_w*1.68,self.h_screen-self.h/4-15))
-        screen.blit(self.retry, (self.w_screen-self.w/4-init_w*0.98,self.h_screen-self.h/4-15))
+        screen.blit(self.back_button, (0,0))
+        screen.blit(self.retry, (self.w_screen-self.retry.get_width(),0))
         
         # Winning condition
         if self.finish == 1:

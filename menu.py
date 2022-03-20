@@ -23,9 +23,6 @@ class menuUI:
         return pygame.transform.scale(img, (img.get_width()*factor, img.get_height()*factor))
     
     def draw(self, screen, cond, pos):
-        mouse = pygame.mouse.get_pressed()
-        mpos = pygame.mouse.get_pos()
-        
         diff_rects = []
 
         if cond == 0:
