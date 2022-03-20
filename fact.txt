@@ -28,3 +28,12 @@ Image Type: Building
 Time: 1930
 Description: In 1930 Asbury Hall was erected on West Campus, across from Middle College. Its construction was made possible in a time of economic depression by borrowing from the university's endowment fund as well as by special gifts. Housing the social science and humanities departments, Asbury soon became one of the most frequented places on campus. 
 
+Name: West College
+Image Type Building
+Time: 1879
+Description: West College was previously known as the Edifice, which was constructed in 1842, got burned in 1979 and renovated with the additions to the east and west sides of the building.  While the renovated building lacked the peculiar charm of the old Edifice, the new West College, as it was renamed, gave good service to the university for the next 50 years."  The building was declared unsafe in 1930 and demolished four years later. 
+
+Name: East College
+Image Type: Building
+Time: 1870
+Description: East College is DePauw’s most iconic and quintessentially collegiate building. It also is one of its oldest. Meharry Hall with its wooden blinds, high ceiling, wooden pews and a picturesque balcony, it has the feel of a vintage chapel. Some students claim it is haunted.
