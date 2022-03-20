@@ -2,13 +2,15 @@ import pygame
 import os, sys
 from slide_puzzle import SlidePuzzle
 
+
+
 def main():
     pygame.init()
     os.environ['SDL_VIDEO_CENTERED'] = '1'
     pygame.display.set_caption("Slide Puzzle")
     screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
     fpsclock = pygame.time.Clock()
-    program = SlidePuzzle((4,4), 150, 5)
+    program = SlidePuzzle((3,3), 100, 5)
     
     
     while True:

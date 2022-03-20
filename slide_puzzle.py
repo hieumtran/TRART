@@ -24,6 +24,7 @@ class SlidePuzzle:
         self.w, self.h = gs[0]*(ts+ms)+ms, gs[1]*(ts+ms)+ms
         self.pic = pygame.image.load('./building/peeler.jpg')
         self.pic = pygame.transform.scale(self.pic, (self.w, self.h))
+        self.finish = 0
         
         # Scaling factor
         w_screen, h_screen = pygame.display.get_surface().get_size() 
@@ -52,7 +53,7 @@ class SlidePuzzle:
         n = self.tiles.index(tile)
         self.tiles[n], self.opentile = self.opentile, self.tiles[n]
         if self.tiles == self.tilesOG:
-            print("COMPLETE")
+            self.finish = 1
     
     def is_grid(self, tile): 
         return tile[0] >= 0 and tile[0] < self.gs[0] and tile[1] >= 0 and tile[1] < self.gs[1]
@@ -76,6 +77,8 @@ class SlidePuzzle:
             if self.is_grid(tile): 
                 if tile in self.adjacent():
                     self.switch(tile)
+                    sound = pygame.mixer.Sound("./sounds/click.mp3")
+                    pygame.mixer.Sound.play(sound)
     
     def draw(self, screen):
         init_w, init_h = self.tilespos[(0, 0)][0] + self.w_adjust, self.tilespos[(0, 0)][1] + self.h_adjust
@@ -90,10 +93,11 @@ class SlidePuzzle:
             screen.blit(self.images[i], (x+self.w_adjust,y+self.h_adjust))
         
         # Place holder for goals
-        # pygame.draw.rect(screen, (0, 0, 0), pygame.Rect((init_w / 4)*0.9, (init_h + init_h_size/4)*0.95,, init_h_si))
         goal_w, goal_h = self.w / 2, self.h / 2
         goal_init_w, goal_init_h = (init_w - goal_w)/2, init_h +  (init_h_size - goal_h)/2 
         pygame.draw.rect(screen, (0, 0, 0), pygame.Rect(goal_init_w-self.ms*2, goal_init_h-self.ms*2, goal_w+self.ms*4, goal_h+self.ms*4))
         screen.blit(pygame.transform.scale(self.pic, (goal_w, goal_h)), (goal_init_w, goal_init_h))
-            
         
+        # Winning condition
+        if self.finish == 1:
+            screen.blit()
