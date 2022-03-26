@@ -19,3 +19,8 @@ bin-release/
 
 # Ignore pycache
 __pycache__/
+
+# Ignore building exe files
+build/
+dist/
+main.spec
