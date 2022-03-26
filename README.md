@@ -1,6 +1,6 @@
 # DeSwipe!
 
-# Description
+## Description
 A sliding picture game using pygame package for Tenzer Technology Hackathon.
 The game has 3 different levelsL: 3x3, 4x4, and 5x5 with 22 different DePauw building images with some fun facts
 
