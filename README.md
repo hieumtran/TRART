@@ -9,4 +9,4 @@ The first Tenzer Technology Hackathon - Create a sliding picture game with pygam
 pip install -r requirements.txt
 ```
 
-## 
+## Desktop version ()
