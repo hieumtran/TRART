@@ -9,7 +9,6 @@ def main():
     os.environ['SDL_VIDEO_CENTERED'] = '1'
     pygame.display.set_caption("Slide Puzzle")
     screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-    fpsclock = pygame.time.Clock()
     
     w_screen, h_screen = pygame.display.get_surface().get_size() 
     
