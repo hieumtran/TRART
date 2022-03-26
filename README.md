@@ -1,5 +1,8 @@
 # DeSwipe!
-The first Tenzer Technology Hackathon - Create a sliding picture game with pygame
+
+# Description
+A sliding picture game using pygame package for Tenzer Technology Hackathon.
+The game has 3 different levelsL: 3x3, 4x4, and 5x5 with 22 different DePauw building images with some fun facts
 
 ## Requirements
 ### Python requirements
