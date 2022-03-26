@@ -19,3 +19,6 @@ python main.py
 pyinstaller --onefile -w main.py
 ```
 The created .exe file is in the ./dist folder
+
+## Snapshot from game
+![An example from 3x3 level](figure/3x3.png)
