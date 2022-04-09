@@ -1,16 +1,25 @@
 import pygame
 import os, sys
-from utils.slide_puzzle import SlidePuzzle
-from utils.menu import menuUI
+from slide_puzzle import SlidePuzzle
+from menu import menuUI
+
+import tkinter as tk
+
+os.environ['SDL_VIDEO_CENTERED'] = '1'
 
 
 def main():
     pygame.init()
-    os.environ['SDL_VIDEO_CENTERED'] = '1'
+    os.environ['SDL_VIDEO_CENTERED'] = "center"
     pygame.display.set_caption("Slide Puzzle")
-    screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
     
-    w_screen, h_screen = pygame.display.get_surface().get_size() 
+    root = tk.Tk()
+
+    (w_screen, h_screen) = (root.winfo_screenwidth(), root.winfo_screenheight())
+
+    screen = pygame.display.set_mode((w_screen, h_screen))
+    
+    # w_screen, h_screen = pygame.display.get_surface().get_size() 
     
     program_3x3 = SlidePuzzle((3,3), 160, 5, w_screen, h_screen)
     program_4x4 = SlidePuzzle((4,4), 130, 5, w_screen, h_screen)
