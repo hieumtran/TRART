@@ -2,15 +2,12 @@ import pygame
 import os, sys
 from slide_puzzle import SlidePuzzle
 from menu import menuUI
-
 import tkinter as tk
 
-os.environ['SDL_VIDEO_CENTERED'] = '1'
 
 
 def main():
     pygame.init()
-    os.environ['SDL_VIDEO_CENTERED'] = "center"
     pygame.display.set_caption("Slide Puzzle")
     
     root = tk.Tk()
@@ -21,9 +18,9 @@ def main():
     
     # w_screen, h_screen = pygame.display.get_surface().get_size() 
     
-    program_3x3 = SlidePuzzle((3,3), 160, 5, w_screen, h_screen)
-    program_4x4 = SlidePuzzle((4,4), 130, 5, w_screen, h_screen)
-    program_5x5 = SlidePuzzle((5,5), 100, 5, w_screen, h_screen)
+    program_3x3 = SlidePuzzle((3,3), 160*2, 5, w_screen, h_screen)
+    program_4x4 = SlidePuzzle((4,4), 130*2, 5, w_screen, h_screen)
+    program_5x5 = SlidePuzzle((5,5), 100*2, 5, w_screen, h_screen)
     menu_ui = menuUI('./ui_button/DeSwipe.png', './ui_button/start.png', './ui_button/quit.png',
                      ['./ui_button/3x3.png', './ui_button/4x4.png', './ui_button/5x5.png'], './ui_button/back.png', w_screen, h_screen)
     

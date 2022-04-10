@@ -23,4 +23,5 @@ __pycache__/
 # Ignore building exe files
 build/
 dist/
-main.spec
+*.spec
+*.pyo
